@@ -14,13 +14,9 @@
 - (float)tableView:(id)view heightForRowAtIndexPath:(id)indexPath;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)indexPath;
 - (void)_filterWasToggled:(id)toggled;
-- (void)_reloadTableViewAndNavigationBar;
 @end
 
-#define settingsPath @"/var/mobile/Library/Preferences/com.shinvou.hiddencalllog7.plist"
-
 static BOOL hidden = YES;
-static BOOL saveState = NO;
 
 %hook PHRecentsViewController
 
@@ -37,14 +33,6 @@ static BOOL saveState = NO;
 		%orig;
     } else if (index == 1) {
         hidden = !hidden;
-
-        if (saveState) {
-            NSMutableDictionary *settings = [[NSMutableDictionary alloc] initWithContentsOfFile:settingsPath];
-            [settings setObject:[NSNumber numberWithBool:hidden] forKey:@"isHidden"];
-            [settings writeToFile:settingsPath atomically:YES];
-            [settings release];
-        }
-
 		[self _reloadTableViewAndNavigationBar];
     }
 }
@@ -86,57 +74,3 @@ static BOOL saveState = NO;
 }
 
 %end
-
-static void ReloadSettings()
-{
-    NSMutableDictionary *settings = [[NSMutableDictionary alloc] initWithContentsOfFile:settingsPath];
-
-    if (settings) {
-        if ([settings objectForKey:@"saveState"]) {
-            system("killall -9 MobilePhone");
-
-            saveState = [[settings objectForKey:@"saveState"] boolValue];
-
-            if (saveState) {
-                if ([settings objectForKey:@"isHidden"]) {
-                    hidden = [[settings objectForKey:@"isHidden"] boolValue];
-                } else {
-                    [settings setObject:[NSNumber numberWithBool:YES] forKey:@"isHidden"];
-                    [settings writeToFile:settingsPath atomically:YES];
-                }
-            }
-        }
-    }
-
-    [settings release];
-}
-
-static void ReloadSettingsOnStartup()
-{
-    NSMutableDictionary *settings = [[NSMutableDictionary alloc] initWithContentsOfFile:settingsPath];
-
-    if (settings) {
-        if ([settings objectForKey:@"saveState"]) {
-            saveState = [[settings objectForKey:@"saveState"] boolValue];
-
-            if (saveState) {
-                if ([settings objectForKey:@"isHidden"]) {
-                    hidden = [[settings objectForKey:@"isHidden"] boolValue];
-                } else {
-                    [settings setObject:[NSNumber numberWithBool:YES] forKey:@"isHidden"];
-                    [settings writeToFile:settingsPath atomically:YES];
-                }
-            }
-        }
-    }
-
-    [settings release];
-}
-
-%ctor {
-	@autoreleasepool {
-		CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)ReloadSettings, CFSTR("com.shinvou.hiddencalllog7/reloadSettings"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-
-		ReloadSettingsOnStartup();
-	}
-}

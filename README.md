@@ -5,7 +5,7 @@
 HiddenCallLog7 is a jailbreak extension for iOS that allows users to hide recent and missed calls in MobilePhone.app.
 
 ### How do I HiddenCallLog7?
-Just install the tweak and toggle via Edit -> Clear -> Toggle Hidden. In the settings you can choose whether Hidden/Unhidden state will be saved or not.
+Just install the tweak and toggle via Edit -> Clear -> Toggle Hidden. No options to configure.
 
 ### How do I get?
 Compile it for yourself or use the .deb included.
