@@ -1,8 +1,8 @@
-Package: com.shinvou.hiddencalllog7
+Package: com.shinvou.HiddenCallLog7
 Name: HiddenCallLog7
 Depends: mobilesubstrate
-Version: 1.0
+Version: 1.1
 Architecture: iphoneos-arm
-Description: Hide recent and missed calls in MobilePhone.app.
+Description: HiddenCallLog7
 Author: Timm Kandziora
 Section: Tweaks
