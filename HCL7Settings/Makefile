@@ -7,6 +7,7 @@ HCL7Settings_FILES = HCL7Settings.mm
 HCL7Settings_INSTALL_PATH = /Library/PreferenceBundles
 HCL7Settings_FRAMEWORKS = UIKit
 HCL7Settings_PRIVATE_FRAMEWORKS = Preferences
+HCL7Settings_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 

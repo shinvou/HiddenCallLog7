@@ -3,7 +3,7 @@
 		bundle = HCL7Settings;
 		cell = PSLinkCell;
 		detail = "HCL7SettingsListController";
-		icon = "HCL7Settings@2x.png";
+		icon = "HCL7Settings.png";
 		isController = 1;
 		label = HiddenCallLog7;
 	};

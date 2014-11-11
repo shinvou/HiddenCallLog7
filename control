@@ -1,7 +1,7 @@
 Package: com.shinvou.HiddenCallLog7
 Name: HiddenCallLog7
 Depends: mobilesubstrate
-Version: 1.1
+Version: 2.0
 Architecture: iphoneos-arm
 Description: HiddenCallLog7
 Author: Timm Kandziora
